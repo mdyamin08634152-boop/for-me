@@ -6,7 +6,7 @@
     <title>For Hana ❤️</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
-        .card { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2); text-align: center; max-width: 400px; width: 90%; border: 2px solid #ff4d6d; }
+        .card { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2); text-align: center; max-width: 400px; width: 90%; border: 2px solid #ff4d6d; z-index: 10; }
         h1 { color: #ff4d6d; font-size: 2rem; margin-bottom: 10px; }
         p { color: #c9184a; font-size: 1.1rem; }
         .gif_container img { width: 100%; max-width: 250px; border-radius: 20px; margin-bottom: 20px; }
@@ -23,17 +23,21 @@
 </head>
 <body>
 
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="card" id="mainCard">
         <div class="gif_container">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3djV3eHh6NXA4eXp3Z3R5eXp3Z3R5eXp3Z3R5eXp3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute animation">
         </div>
         <h1 id="question">HANA... 🌹</h1>
-        <p id="subtext">I have something important to ask you.</p>
+        <p id="subtext">I have a question for you...</p>
         <p style="font-size: 1.5rem; font-weight: bold; color: #ff4d6d;">Will you be my Valentine?</p>
         
         <div class="btn-group">
             <button id="yesBtn" onclick="celebrate()">Yes</button>
-            <button id="noBtn" onmouseover="moveNo()">No</button>
+            <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
         </div>
     </div>
 
@@ -43,29 +47,29 @@
         const messages = [
             "Are you sure?",
             "Really sure??",
-            "Think again, Hana!",
-            "Don't do this to me :(",
-            "You're breaking my heart!",
-            "I'm gonna cry...",
-            "MD YAMIN will be sad!"
+            "Pleeaaase Hana!",
+            "MD YAMIN is waiting...",
+            "Don't click this!",
+            "I'm gonna be so sad...",
+            "Okay, the Yes button is getting bigger!"
         ];
 
         function moveNo() {
+            // Start music on first interaction (browsers block auto-play)
+            document.getElementById('bgMusic').play();
+
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             
-            // Move No button to random position
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 50);
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 150);
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
 
-            // Make Yes button bigger
-            yesScale += 0.4;
+            yesScale += 0.5;
             yesBtn.style.transform = `scale(${yesScale})`;
 
-            // Change the subtext
             if (noClicks < messages.length) {
                 document.getElementById('subtext').innerText = messages[noClicks];
                 noClicks++;
@@ -73,15 +77,15 @@
         }
 
         function celebrate() {
+            document.getElementById('bgMusic').play();
             const card = document.getElementById('mainCard');
             card.innerHTML = `
                 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXp6Z3R5eXp3Z3R5eXp3Z3R5eXp3Z3R5eXp3Z3R5eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlvU6gXnZHhbW3S/giphy.gif" style="width: 200px; border-radius: 20px;">
-                <h1 style="margin-top: 20px;">YES! ❤️</h1>
-                <p style="font-size: 1.4rem;">I'm so happy, Hana!</p>
-                <p style="font-size: 1.1rem; color: #ff4d6d; font-weight: bold;">I love you! - MD YAMIN</p>
+                <h1 style="margin-top: 20px;">I LOVE YOU HANA! ❤️</h1>
+                <p style="font-size: 1.4rem;">You've made me the happiest man!</p>
+                <p style="font-size: 1.1rem; color: #ff4d6d; font-weight: bold;">Forever yours, <br> - MD YAMIN</p>
             `;
             
-            // Create heart explosion
             setInterval(createHeart, 100);
         }
 
