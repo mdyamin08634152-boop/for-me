@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise for Hana</title>
+    <style>
+        body { font-family: 'Georgia', serif; background-color: #fff0f3; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; text-align: center; }
+        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); max-width: 90%; }
+        h1 { color: #ff4d6d; font-size: 2rem; }
+        p { color: #590d22; font-size: 1.1rem; line-height: 1.5; }
+        .gif_container img { width: 200px; margin-bottom: 20px; }
+        .buttons { margin-top: 25px; display: flex; justify-content: center; align-items: center; gap: 20px; min-height: 100px; }
+        button { padding: 12px 25px; font-size: 1.1rem; border: none; border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+        #yesBtn { background-color: #ff4d6d; color: white; font-weight: bold; z-index: 1000; }
+        #noBtn { background-color: #808080; color: white; position: relative; }
+        .hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div class="gif_container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3djV3eHh6NXA4eXp3Z3R5eXp3Z3R5eXp3Z3R5eXp3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute">
+        </div>
+        <h1>To my dearest Hana...</h1>
+        <p>I wanted to ask you something very special today. <br> You make my life so much brighter, MD YAMIN.</p>
+        
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">YES!</button>
+            <button id="noBtn" onmouseover="moveAndGrow()">No</button>
+        </div>
+    </div>
+
+    <script>
+        let yesSize = 1.1;
+
+        function moveAndGrow() {
+            // 1. Move the No button
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+
+            // 2. Make the Yes button bigger!
+            yesSize += 0.3;
+            const yesBtn = document.getElementById('yesBtn');
+            yesBtn.style.transform = `scale(${yesSize})`;
+        }
+
+        function celebrate() {
+            const card = document.getElementById('mainCard');
+            card.innerHTML = `
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXp6Z3R5eXp3Z3R5eXp3Z3R5eXp3Z3R5eXp3Z3R5eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlvU6gXnZHhbW3S/giphy.gif" width="200">
+                <h1 style="color: #ff4d6d;">I Knew You'd Say Yes! ❤️</h1>
+                <p>Hana, you've made me the happiest person in the world.<br>Happy Valentine's Day!</p>
+                <p style="font-weight: bold;">- Your MD YAMIN</p>
+            `;
+            createHearts();
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+                heart.style.animation = `float ${Math.random() * 3 + 2}s linear forwards`;
+                document.body.appendChild(heart);
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes float {
+            to {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</body>
+</html>
